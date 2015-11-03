@@ -284,7 +284,7 @@ implements ProcessingResource {
         }
       }
 
-      tree = stanfordParser.parseTree(wordList); 
+      tree = stanfordParser.parse(wordList); 
       checkInterruption();
 
       if (addConstituentAnnotations || addPosTags) {
