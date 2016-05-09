@@ -1,0 +1,19 @@
+<ivy-module version="2.0">
+
+  <info
+    organisation="uk.ac.gate"
+    module="gate-plugin-stanford_corenlp"
+    revision="2.0-SNAPSHOT">
+    <description homepage="https://github.com/GateNLP/gateplugin-Stanford_CoreNLP/" />
+  </info>
+
+  <configurations>
+    <conf name="default" />
+  </configurations>
+
+  <dependencies defaultconf="*->master(default),runtime(default)" >
+    <dependency org="edu.stanford.nlp" name="stanford-corenlp" rev="3.6.0" />
+  </dependencies>
+</ivy-module>
+
+
