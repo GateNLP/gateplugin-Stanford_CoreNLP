@@ -1,0 +1,16 @@
+/.project
+/gateplugin-Stanford_CoreNLP-*.zip
+/gateplugin-Stanford_CoreNLP.jar
+/classes
+/lib
+/build.properties
+/build
+*~
+#*#
+*.class
+TEST-*.xml
+TEST-*.txt
+TESTS-TestSuites.xml
+junit-noframes.html
+hs_err_*.log
+
