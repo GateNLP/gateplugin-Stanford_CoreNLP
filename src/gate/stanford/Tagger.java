@@ -1,11 +1,19 @@
 /*
- * Copyright (c) 1995-2013, The University of Sheffield. See the file
+ * Copyright (c) 2006-2016, The University of Sheffield. See the file
  * COPYRIGHT.txt in the software or at http://gate.ac.uk/gate/COPYRIGHT.txt
  * 
- * This file is part of GATE (see http://gate.ac.uk/), and is free software,
- * licenced under the GNU Library General Public License, Version 2, June 1991
- * (in the distribution as file licence.html, and also available at
- * http://gate.ac.uk/gate/licence.html).
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  * 
  * Leon Derczynski, 11 Jun 2012
  * 
@@ -226,8 +234,7 @@ public class Tagger extends AbstractLanguageAnalyser {
         Iterator<Annotation> tokIter = tokensInCurrentSentence.iterator();
         while(resIter.hasNext()) {
           Annotation annot = tokIter.next();
-          addFeatures(annot, TOKEN_CATEGORY_FEATURE_NAME, ((String)resIter
-            .next().tag()));
+          addFeatures(annot, TOKEN_CATEGORY_FEATURE_NAME, (resIter.next().tag()));
         }
         fireProgressChanged(sentIndex++ * 100 / sentCnt);
       }// while(sentencesIter.hasNext())
@@ -269,8 +276,7 @@ public class Tagger extends AbstractLanguageAnalyser {
         Iterator<Annotation> tokIter = tokensInCurrentSentence.iterator();
         while(resIter.hasNext()) {
           Annotation annot = tokIter.next();
-          addFeatures(annot, TOKEN_CATEGORY_FEATURE_NAME, ((String)resIter
-            .next().tag()));
+          addFeatures(annot, TOKEN_CATEGORY_FEATURE_NAME, (resIter.next().tag()));
         }
       }// if(currentToken != null)
       fireProcessFinished();
@@ -329,7 +335,7 @@ public class Tagger extends AbstractLanguageAnalyser {
           new ArrayList<Annotation>(annotations.get());
         boolean found = false;
         for(int i = 0; i < tempList.size(); i++) {
-          Annotation annotation = (Annotation)tempList.get(i);
+          Annotation annotation = tempList.get(i);
           if(annotation.getStartNode().getOffset().intValue() == start &&
             annotation.getEndNode().getOffset().intValue() == end) {
             // this is the one

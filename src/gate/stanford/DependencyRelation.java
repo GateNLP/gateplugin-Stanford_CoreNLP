@@ -1,11 +1,19 @@
 /*
- *  Copyright (c) 2006-2012, The University of Sheffield. See the file
- *  COPYRIGHT.txt in the software or at http://gate.ac.uk/gate/COPYRIGHT.txt
- *
- *  This file is part of GATE (see http://gate.ac.uk/), and is free
- *  software, licenced under the GNU Library General Public License,
- *  Version 2, June 1991 (in the distribution as file licence.html,
- *  and also available at http://gate.ac.uk/gate/licence.html).
+ * Copyright (c) 2006-2016, The University of Sheffield. See the file
+ * COPYRIGHT.txt in the software or at http://gate.ac.uk/gate/COPYRIGHT.txt
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  *
  *  $Id: DependencyRelation.java 15600 2012-03-19 15:40:56Z adamfunk $
  */

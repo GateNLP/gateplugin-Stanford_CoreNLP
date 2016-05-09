@@ -1,11 +1,19 @@
 /*
- * Copyright (c) 1995-2013, The University of Sheffield. See the file
+ * Copyright (c) 2006-2016, The University of Sheffield. See the file
  * COPYRIGHT.txt in the software or at http://gate.ac.uk/gate/COPYRIGHT.txt
  * 
- * This file is part of GATE (see http://gate.ac.uk/), and is free software,
- * licenced under the GNU Library General Public License, Version 2, June 1991
- * (in the distribution as file licence.html, and also available at
- * http://gate.ac.uk/gate/licence.html).
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  * 
  * Leon Derczynski, 22 Oct 2013
  * 
@@ -14,17 +22,12 @@
 
 package gate.stanford;
 
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.TaggedWord;
-import edu.stanford.nlp.ling.Word;
-import edu.stanford.nlp.ie.*;
-import edu.stanford.nlp.ie.crf.CRFClassifier;
-
 import gate.Annotation;
 import gate.AnnotationSet;
-import gate.Factory;
-import gate.FeatureMap;
 import gate.Resource;
 import gate.Utils;
 import gate.creole.AbstractLanguageAnalyser;
@@ -35,7 +38,6 @@ import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 import gate.creole.metadata.Sharable;
-import gate.util.GateRuntimeException;
 import gate.util.InvalidOffsetException;
 import gate.util.OffsetComparator;
 import gate.util.SimpleFeatureMapImpl;
@@ -206,7 +208,9 @@ public class NER extends AbstractLanguageAnalyser {
         String previousLabel = outsideLabel;
         Long previousEnd = new Long(-1);
         Long entityStart = new Long(-1);
-        Long entityEnd = new Long(-1);
+        
+        //No idea why this was there so lets comment it out
+        //Long entityEnd = new Long(-1);
 
         Annotation annot;
         String nerLabel = "";
