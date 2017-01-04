@@ -514,8 +514,8 @@ implements ProcessingResource {
     if(stanfordParser != null) return;
     
     try {
-      String filepath = Files.fileFromURL(parserFile).getAbsolutePath();
-      stanfordParser = LexicalizedParser.getParserFromSerializedFile(filepath);
+      //String filepath = Files.fileFromURL(parserFile).getAbsolutePath();
+      stanfordParser = LexicalizedParser.getParserFromSerializedFile(parserFile.toExternalForm());
     }
     catch(Exception e) {
       throw new ResourceInstantiationException(e);

@@ -22,6 +22,19 @@
 
 package gate.stanford;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.zip.GZIPInputStream;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -41,17 +54,6 @@ import gate.creole.metadata.Sharable;
 import gate.util.InvalidOffsetException;
 import gate.util.OffsetComparator;
 import gate.util.SimpleFeatureMapImpl;
-
-import java.net.URL;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 /**
  * This class is a wrapper for the Stanford NER tool v3.2.0.
@@ -96,9 +98,9 @@ public class NER extends AbstractLanguageAnalyser {
   public Resource init() throws ResourceInstantiationException {
     if(tagger == null) {
       fireStatusChanged("Loading Stanford NER model");
-      try {
-        // nasty workaround for stanford NER's path format inconsistency - tagger is content with uris beginning file:, ner labeller is not
-        tagger = CRFClassifier.getClassifier(modelFile.toString().substring(5));
+      try (InputStream in = modelFile.openStream();
+          GZIPInputStream gzipIn = new GZIPInputStream(in)){
+        tagger = CRFClassifier.getClassifier(gzipIn);
       } catch(Exception e) {
         throw new ResourceInstantiationException(e);
       }
