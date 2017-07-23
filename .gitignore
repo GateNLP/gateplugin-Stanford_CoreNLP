@@ -1,15 +1,12 @@
-/.project
-/gateplugin-Stanford_CoreNLP-*.zip
-/gateplugin-Stanford_CoreNLP.jar
-/classes
-/lib
-/build.properties
-*~
-#*#
-*.class
-TEST-*.xml
-TEST-*.txt
-TESTS-TestSuites.xml
-junit-noframes.html
-hs_err_*.log
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
