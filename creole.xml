@@ -1,5 +1,0 @@
-<?xml version="1.0"?>  
-<CREOLE-DIRECTORY ID="Stanford CoreNLP tools" VERSION="2015.1025" DESCRIPTION="Stanford CoreNLP" GATE-MIN="8.0">  
-  <JAR SCAN="true">gateplugin-Stanford_CoreNLP.jar</JAR>
-  <IVY>build/ivy.xml</IVY>
-</CREOLE-DIRECTORY> 
