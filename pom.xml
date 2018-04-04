@@ -16,6 +16,9 @@
 	<groupId>uk.ac.gate.plugins</groupId>
 	<artifactId>stanford-corenlp</artifactId>
 	<version>8.5-SNAPSHOT</version>
+	
+	<name>Stanford CoreNLP</name>
+	<description>GATE wrappers for the Stanford CoreNLP tool set</description>
 
 	<licenses>
 		<license>
