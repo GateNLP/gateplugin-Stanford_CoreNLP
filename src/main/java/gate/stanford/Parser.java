@@ -20,6 +20,7 @@
 package gate.stanford;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -498,7 +499,7 @@ public class Parser extends AbstractLanguageAnalyser implements
         // two columns delimited by whitespace
         String[] data = line.split("\\s+", 2);
         // are there key and value available
-        if(data == null || data.length < 2) {
+        if(data.length < 2) {
           continue;
         } else {
           // and add it to the map
@@ -506,7 +507,7 @@ public class Parser extends AbstractLanguageAnalyser implements
         }
       }
 
-    } catch(Exception e) {
+    } catch(RuntimeException | IOException e) {
       System.err
           .println("Exception trying to load mapping file " + mappingFile);
       e.printStackTrace();
