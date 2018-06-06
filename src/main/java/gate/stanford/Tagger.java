@@ -21,6 +21,16 @@
  */
 package gate.stanford;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
@@ -33,6 +43,7 @@ import gate.Utils;
 import gate.creole.AbstractLanguageAnalyser;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
+import gate.creole.ResourceReference;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.Optional;
@@ -40,17 +51,6 @@ import gate.creole.metadata.RunTime;
 import gate.creole.metadata.Sharable;
 import gate.util.GateRuntimeException;
 import gate.util.OffsetComparator;
-
-import java.net.URL;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 /**
  * This class is a wrapper for the Stanford PoS tagger v3.2.0.
@@ -125,7 +125,7 @@ public class Tagger extends AbstractLanguageAnalyser {
   public Resource init() throws ResourceInstantiationException {
     if(tagger == null) {
       try {
-        tagger = new MaxentTagger(modelFile.toExternalForm());
+        tagger = new MaxentTagger(modelFile.toURL().toExternalForm());
       } catch(Exception e) {
         throw new ResourceInstantiationException(e);
       }
@@ -404,11 +404,11 @@ public class Tagger extends AbstractLanguageAnalyser {
   }
 
   @CreoleParameter(comment = "Path to the tagger's model file", defaultValue = "resources/english-left3words-distsim.tagger", suffixes = "tagger;model")
-  public void setModelFile(URL modelFile) {
+  public void setModelFile(ResourceReference modelFile) {
     this.modelFile = modelFile;
   }
 
-  public URL getModelFile() {
+  public ResourceReference getModelFile() {
     return this.modelFile;
   }
 
@@ -441,5 +441,5 @@ public class Tagger extends AbstractLanguageAnalyser {
 
   private String outputASName;
 
-  private URL modelFile;
+  private ResourceReference modelFile;
 }

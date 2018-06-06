@@ -19,6 +19,16 @@
  */
 package gate.stanford;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.parser.lexparser.TreebankLangParserParams;
@@ -38,25 +48,13 @@ import gate.creole.AbstractLanguageAnalyser;
 import gate.creole.ExecutionException;
 import gate.creole.ExecutionInterruptedException;
 import gate.creole.ResourceInstantiationException;
+import gate.creole.ResourceReference;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 import gate.creole.metadata.Sharable;
 import gate.util.InvalidOffsetException;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * GATE PR wrapper around the Stanford Parser. This class expects to find Token
@@ -93,7 +91,7 @@ public class Parser extends AbstractLanguageAnalyser implements
 
   protected String annotationSetName;
 
-  private URL parserFile;
+  private ResourceReference parserFile;
 
   protected boolean debugMode;
 
@@ -106,10 +104,7 @@ public class Parser extends AbstractLanguageAnalyser implements
   /* CREOLE parameters for optional mapping */
   private boolean useMapping = false;
 
-  private URL mappingFileURL;
-
-  /* internal variables for mapping */
-  private File mappingFile;
+  private ResourceReference mappingFileURL;
 
   private boolean mappingLoaded = false;
 
@@ -187,8 +182,8 @@ public class Parser extends AbstractLanguageAnalyser implements
    */
   public Resource init() throws ResourceInstantiationException {
     instantiateStanfordParser();
-    if(mappingFile != null) {
-      loadTagMapping(mappingFile);
+    if(mappingFileURL != null) {
+      loadTagMapping(mappingFileURL);
     }
     super.init();
     if(tlppClass == null || tlppClass.equals("")) { throw new ResourceInstantiationException(
@@ -485,45 +480,40 @@ public class Parser extends AbstractLanguageAnalyser implements
     try {
       // String filepath = Files.fileFromURL(parserFile).getAbsolutePath();
       stanfordParser =
-          LexicalizedParser.getParserFromSerializedFile(parserFile
+          LexicalizedParser.getParserFromSerializedFile(parserFile.toURL()
               .toExternalForm());
     } catch(Exception e) {
       throw new ResourceInstantiationException(e);
     }
   }
 
-  private void loadTagMapping(File mappingFile) {
+  private void loadTagMapping(ResourceReference mappingFile) {
     tagMap = new HashMap<String, String>();
     mappingLoaded = false;
-    try {
-      if(mappingFile.exists() && mappingFile.canRead()) {
-        BufferedReader br = new BufferedReader(new FileReader(mappingFile));
-        String line = "";
-        // read until it reaches to an end of the file
-        while((line = br.readLine()) != null) {
-          // two columns delimited by whitespace
-          String[] data = line.split("\\s+", 2);
-          // are there key and value available
-          if(data == null || data.length < 2) {
-            continue;
-          } else {
-            // and add it to the map
-            tagMap.put(data[0].trim(), data[1].trim());
-          }
+    try (BufferedReader br =
+        new BufferedReader(new InputStreamReader(mappingFile.openStream()))) {
+      String line = "";
+      // read until it reaches to an end of the file
+      while((line = br.readLine()) != null) {
+        // two columns delimited by whitespace
+        String[] data = line.split("\\s+", 2);
+        // are there key and value available
+        if(data == null || data.length < 2) {
+          continue;
+        } else {
+          // and add it to the map
+          tagMap.put(data[0].trim(), data[1].trim());
         }
-        br.close();
-      } else {
-        System.err.println("Can't find or read mapping file "
-            + mappingFile.getPath() + " so no mappings will be used.");
       }
+
     } catch(Exception e) {
-      System.err.println("Exception trying to load mapping file "
-          + mappingFile.getPath());
+      System.err
+          .println("Exception trying to load mapping file " + mappingFile);
       e.printStackTrace();
     }
     int nbrMapped = tagMap.size();
-    System.out.println("Loaded " + nbrMapped + " mappings from file "
-        + mappingFile);
+    System.out
+        .println("Loaded " + nbrMapped + " mappings from file " + mappingFile);
     mappingLoaded = (nbrMapped > 0);
   }
 
@@ -582,11 +572,11 @@ public class Parser extends AbstractLanguageAnalyser implements
   }
 
   @CreoleParameter(comment = "path to the parser's grammar file", defaultValue = "resources/englishRNN.ser.gz")
-  public void setParserFile(URL parserFile) {
+  public void setParserFile(ResourceReference parserFile) {
     this.parserFile = parserFile;
   }
 
-  public URL getParserFile() {
+  public ResourceReference getParserFile() {
     return this.parserFile;
   }
 
@@ -716,20 +706,11 @@ public class Parser extends AbstractLanguageAnalyser implements
    */
   @Optional
   @CreoleParameter(comment = "path to the tag mapping file")
-  public void setMappingFile(URL mappingFileURL) {
-    this.mappingFile = null; // override below
+  public void setMappingFile(ResourceReference mappingFileURL) {
     this.mappingFileURL = mappingFileURL;
-    if((this.mappingFileURL != null)
-        && (!this.mappingFileURL.toString().trim().equals(""))) {
-      try {
-        this.mappingFile = new File(this.mappingFileURL.toURI());
-      } catch(URISyntaxException e) {
-        e.printStackTrace();
-      }
-    }
   }
 
-  public URL getMappingFile() {
+  public ResourceReference getMappingFile() {
     return this.mappingFileURL;
   }
 

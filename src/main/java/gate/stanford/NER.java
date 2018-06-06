@@ -22,7 +22,6 @@
 package gate.stanford;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +44,7 @@ import gate.Utils;
 import gate.creole.AbstractLanguageAnalyser;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
+import gate.creole.ResourceReference;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.Optional;
@@ -319,11 +319,11 @@ public class NER extends AbstractLanguageAnalyser {
   }
 
   @CreoleParameter(comment = "Path to the NER model file", defaultValue = "resources/english.all.3class.distsim.crf.ser.gz", suffixes = "tagger;model;gz")
-  public void setModelFile(URL modelFile) {
+  public void setModelFile(ResourceReference modelFile) {
     this.modelFile = modelFile;
   }
 
-  public URL getModelFile() {
+  public ResourceReference getModelFile() {
     return this.modelFile;
   }
 
@@ -356,5 +356,5 @@ public class NER extends AbstractLanguageAnalyser {
 
   private String outsideLabel;
 
-  private URL modelFile;
+  private ResourceReference modelFile;
 }
