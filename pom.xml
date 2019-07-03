@@ -8,7 +8,7 @@
 		<groupId>uk.ac.gate</groupId>
 		<artifactId>gate-plugin-base</artifactId>
 		<!-- this should be the version of GATE you wish to build against -->
-		<version>8.5</version>
+		<version>8.6-SNAPSHOT</version>
 		<relativePath></relativePath>
 	</parent>
 
