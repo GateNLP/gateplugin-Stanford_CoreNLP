@@ -47,6 +47,14 @@
 		<url>https://github.com/GateNLP/gateplugin-Stanford_CoreNLP</url>
 	</scm>
 
+	<repositories>
+		<repository>
+			<id>gate.ac.uk</id>
+			<name>GATE Development Repository</name>
+			<url>https://repo.gate.ac.uk/content/groups/public/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- add any other libraries your plugin depends on. Any other GATE plugins 
 			you depend on at compile time should use the provided scope -->
