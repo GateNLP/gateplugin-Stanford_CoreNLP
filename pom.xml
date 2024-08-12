@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
-			<version>3.6.0</version>
+			<version>4.4.0</version>
 			<exclusions>
 				<exclusion>
 					<!-- this is part of the JDK so stop confusing the GATE classloader -->
